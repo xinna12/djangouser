@@ -1,0 +1,61 @@
+
+重用djagno auth user 进行web开发
+
+以下是djangouser app 的使用文档
+git下载： git clone
+
+1. 安装必要的库(python2.7.6)
+
+mkvirtualenv demosite
+pip install Django==1.7
+pip install djangorestframework
+pip install markdown
+pip install django-filter
+
+2. 配置settings.py
+
+新建一个project ： django-admin.py startproject demosite
+cd demosite
+将 djangouser 应用代码克隆到本地 git clone
+打开settings.py文件，vi settings.py，
+(1) 在INSTALLED_APPS加入 'djangouser'
+(2) 配置好 DATABASES
+(3) 项目目录下新建文件夹：static,media,templates,
+加入如下配置项：
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# upload folder
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+TEMPLATE_DIRS = (
+     BASE_DIR+'/templates/admin',
+)
+
+(4) 配置url.py文件
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from djangouser.admin_views import user_view
+
+urlpatterns = patterns('',
+    url(r'^$', user_view),
+    url(r'^admin/auth/user/', user_view),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'', include("djangouser.urls")),
+)
+
+(5) 系统初始化
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
+python manage.py createsuperuser
+
+(6) 测试登录,注册,找回密码接口
+
+(7) 扩展用户模块
+
+
+
+
+
