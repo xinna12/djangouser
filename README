@@ -2,7 +2,7 @@
 重用djagno auth user 进行web开发
 
 以下是djangouser app 的使用文档
-git下载： git clone
+git下载： git clone https://github.com/niyoufa/djangouser
 
 1. 安装必要的库(python2.7.6)
 
