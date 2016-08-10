@@ -8,15 +8,17 @@ git下载： git clone
 
 mkvirtualenv demosite
 pip install Django==1.7
-pip install djangorestframework
+pip install djangorestframework==3.1.1
 pip install markdown
 pip install django-filter
+sudo apt-get install libmysqlclient-dev
+pip install MySQL-python
 
 2. 配置settings.py
 
 新建一个project ： django-admin.py startproject demosite
 cd demosite
-将 djangouser 应用代码克隆到本地 git clone
+将 djangouser 应用代码克隆到本地 git clone https://github.com/niyoufa/djangouser
 打开settings.py文件，vi settings.py，
 (1) 在INSTALLED_APPS加入 'djangouser'
 (2) 配置好 DATABASES
@@ -39,8 +41,6 @@ from django.contrib import admin
 from djangouser.admin_views import user_view
 
 urlpatterns = patterns('',
-    url(r'^$', user_view),
-    url(r'^admin/auth/user/', user_view),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include("djangouser.urls")),
 )
@@ -51,7 +51,9 @@ python manage.py migrate
 python manage.py collectstatic
 python manage.py createsuperuser
 
-(6) 测试登录,注册,找回密码接口
+(6) 启动服务,http://127.0.0.1:8086/admin/auth/user/1/ 检查用户详情中是否有UserProfile一栏，有则表明应用正常
+
+(7) 测试登录,注册,找回密码接口
 
 (7) 扩展用户模块
 
